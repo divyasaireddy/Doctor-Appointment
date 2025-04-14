@@ -1,0 +1,29 @@
+import React from "react";
+import "./app.css"; // Import global styles
+import Layout from "./Layout/Layout";
+import { ToastContainer } from "react-toastify"; // Import Toastify for notifications
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+
+function App() {
+  return (
+    <>
+      {/* Main layout component */}
+      <Layout />
+
+      {/* Toast notifications setup */}
+      <ToastContainer 
+        position="top-center" 
+        autoClose={2000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover 
+      />
+    </>
+  );
+}
+
+export default App;
