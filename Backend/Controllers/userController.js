@@ -23,6 +23,7 @@ export const updateUser = async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Failed to update', error: err.message });
     }
+    
 };
 
 // ✅ Delete user
@@ -131,9 +132,8 @@ export const getMyAppointments = async (req, res) => {
 // ✅ Book an appointment (Updated version)
 export const bookAppointment = async (req, res) => {
     try {
-      const { doctor, appointmentDate, ticketPrice } = req.body;
+      const { doctor, appointmentDate, ticketPrice, symptoms } = req.body;
   
-      // Validation
       if (!doctor || !appointmentDate || !ticketPrice) {
         return res.status(400).json({ success: false, message: 'Missing required fields' });
       }
@@ -143,8 +143,9 @@ export const bookAppointment = async (req, res) => {
         user: req.user.id,
         ticketPrice,
         appointmentDate,
+        symptoms: symptoms || "Not specified", // ✅ Add this line
         status: "pending",
-        isPaid: true, // You can update this if you're integrating a payment system
+        isPaid: false,
       });
   
       await booking.save();
@@ -158,7 +159,10 @@ export const bookAppointment = async (req, res) => {
       console.error("Book appointment error:", err);
       res.status(500).json({ success: false, message: 'Error booking appointment', error: err.message });
     }
+    console.log("Bookings being sent to frontend:", Booking);
+
   };
+  
   
 // ✅ Cancel an appointment
 

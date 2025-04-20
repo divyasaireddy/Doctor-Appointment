@@ -21,6 +21,7 @@ import DoctorList from "../Components/Doctors/DoctorList.jsx";
 import FaqList from "../Components/Faq/FaqItem.jsx";
 import Testimonial from "../Components/Testimonial/Testimonial.jsx";
 import Footer from "../Components/Footer/Footer.jsx";
+import VirtualTreatment from './Doctors/VirtualTreatment.jsx'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -218,7 +219,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-5">
+      {/* <section className="py-5">
         <div className="container">
           <div className="row align-items-center justify-content-between mx-md-4 mx-lg-5">
             <div className="col-lg-5 pe-lg-5">
@@ -269,6 +270,16 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section> */}
+
+      <section className="py-5">
+        <div className="container">
+          <div className="col-xl-6 mx-auto text-center">
+            <h2 className="fw-bold mb-3">Our Great Doctors</h2>
+            <p className="text-muted">World-class care for everyone. Our health system offers unmatched, expert health care.</p>
+          </div>
+          <VirtualTreatment />
         </div>
       </section>
 

@@ -24,6 +24,10 @@ const bookingSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    symptoms: {
+      type: String, // ✅ Add this
+      default: "Not specified",
+    },
     status: {
       type: String,
       enum: ["pending", "approved", "cancelled"],
@@ -31,7 +35,7 @@ const bookingSchema = new mongoose.Schema(
     },
     isPaid: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   {
