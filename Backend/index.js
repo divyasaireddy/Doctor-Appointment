@@ -9,6 +9,10 @@ import doctorRoute from "./Routes/doctor.js";
 import reviewRoute from "./Routes/review.js";
 import bookingRoutes from './Routes/booking.js'; // ✅ Import added
 
+// ✅ Added for serving frontend
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
 
 const app = express();
@@ -25,14 +29,13 @@ const corsOptions = {
   credentials: true,
 };
 
-
-
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => res.send("API is working"));
 
+// MongoDB connect function
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
@@ -43,13 +46,29 @@ const connectDB = async () => {
   }
 };
 
+// API routes
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/doctors", doctorRoute);
 app.use("/api/v1/reviews", reviewRoute);
-app.use("/api/v1/bookings", bookingRoutes); // ✅ Booking route added
+app.use("/api/v1/bookings", bookingRoutes);
 app.use('/uploads', express.static('uploads'));
 
-connectDB().then(() => app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port}`);
-}));
+// ✅ Added serving frontend part (VERY IMPORTANT)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from dist folder
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// For any other route, serve index.html from dist
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
+
+// Start the server
+connectDB().then(() =>
+  app.listen(port, () => {
+    console.log(`🚀 Server running on port ${port}`);
+  })
+);
