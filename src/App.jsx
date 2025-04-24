@@ -1,5 +1,5 @@
 import React from "react";
-import "./app.css"; // Import global styles
+import "./App.css"; // Import global styles
 import Layout from "./Layout/Layout";
 import { ToastContainer } from "react-toastify"; // Import Toastify for notifications
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
